@@ -6,7 +6,7 @@ export default {
   component: Layout,
   redirect: '/error-page/404',
   meta: {
-    title: '错误页',
+    title: 'error page',
     icon: 'mdi:alert-circle-outline',
     order: 99,
   },

@@ -1,9 +1,9 @@
 import { isNullOrWhitespace } from '@/utils'
 
 const ACTIONS = {
-  view: '查看',
-  edit: '编辑',
-  add: '新增',
+  view: 'Check',
+  edit: 'edit',
+  add: 'Add',
 }
 
 export default function ({ name, initForm = {}, doCreate, doDelete, doUpdate, refresh }) {
@@ -14,21 +14,21 @@ export default function ({ name, initForm = {}, doCreate, doDelete, doUpdate, re
   const modalFormRef = ref(null)
   const modalForm = ref({ ...initForm })
 
-  /** 新增 */
+  /** Add */
   function handleAdd() {
     modalAction.value = 'add'
     modalVisible.value = true
     modalForm.value = { ...initForm }
   }
 
-  /** 修改 */
+  /** Edit */
   function handleEdit(row) {
     modalAction.value = 'edit'
     modalVisible.value = true
     modalForm.value = { ...row }
   }
 
-  /** 查看 */
+  /** Check */
   function handleView(row) {
     modalAction.value = 'view'
     modalVisible.value = true
@@ -46,11 +46,11 @@ export default function ({ name, initForm = {}, doCreate, doDelete, doUpdate, re
       const actions = {
         add: {
           api: () => doCreate(modalForm.value),
-          cb: () => $message.success('新增成功'),
+          cb: () => $message.success('added successfully'),
         },
         edit: {
           api: () => doUpdate(modalForm.value),
-          cb: () => $message.success('编辑成功'),
+          cb: () => $message.success('edited successfully'),
         },
       }
       const action = actions[modalAction.value]
@@ -71,12 +71,12 @@ export default function ({ name, initForm = {}, doCreate, doDelete, doUpdate, re
   function handleDelete(id, confirmOptions) {
     if (isNullOrWhitespace(id)) return
     $dialog.confirm({
-      content: '确定删除？',
+      content: 'confirm delete?',
       async confirm() {
         try {
           modalLoading.value = true
           const data = await doDelete(id)
-          $message.success('删除成功')
+          $message.success('successfully deleted')
           modalLoading.value = false
           refresh(data)
         } catch (error) {

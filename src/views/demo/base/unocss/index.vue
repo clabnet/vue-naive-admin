@@ -1,7 +1,7 @@
 <template>
   <CommonPage show-footer>
     <p>
-      文档：
+      Documentation:
       <a c-blue hover-decoration-underline href="https://uno.antfu.me/" target="_blank">
         https://uno.antfu.me/
       </a>
@@ -63,7 +63,7 @@
           </div>
         </div>
       </div>
-      <h2 mt-10 text-14 font-normal color-gray>Flex 骰子</h2>
+      <h2 mt-10 text-14 font-normal color-gray>Flex dado</h2>
     </div>
   </CommonPage>
 </template>

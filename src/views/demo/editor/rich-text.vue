@@ -26,7 +26,7 @@ import { Editor as WangEditor, Toolbar as WangToolbar } from '@wangeditor/editor
 defineOptions({ name: 'RichTextEditor' })
 const editorRef = shallowRef()
 const toolbarConfig = { excludeKeys: 'fullScreen' }
-const editorConfig = { placeholder: '请输入内容...', MENU_CONF: {} }
+const editorConfig = { placeholder: 'Please enter content...', MENU_CONF: {} }
 const valueHtml = ref('')
 
 const handleCreated = (editor) => {

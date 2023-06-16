@@ -1,7 +1,7 @@
 <template>
   <CommonPage show-footer>
     <n-space size="large">
-      <n-card title="按钮 Button">
+      <n-card title="Button">
         <n-space>
           <n-button>Default</n-button>
           <n-button type="tertiary">Tertiary</n-button>
@@ -13,49 +13,49 @@
         </n-space>
       </n-card>
 
-      <n-card title="带 Icon 的按钮">
+      <n-card title="Buttons with Icons">
         <n-space>
           <n-button type="info">
             <TheIcon icon="material-symbols:add" :size="18" class="mr-5" />
-            新增
+            Add
           </n-button>
           <n-button type="error">
             <TheIcon icon="material-symbols:delete-outline" :size="18" class="mr-5" />
-            删除
+            delete
           </n-button>
           <n-button type="warning">
             <TheIcon icon="material-symbols:edit-outline" :size="18" class="mr-5" />
-            编辑
+            edit
           </n-button>
           <n-button type="primary">
             <TheIcon icon="majesticons:eye-line" :size="18" class="mr-5" />
-            查看
+            Check
           </n-button>
         </n-space>
       </n-card>
     </n-space>
 
     <n-space size="large" mt-30>
-      <n-card min-w-340 title="通知 Notification">
+      <n-card min-w-340 title="Notification">
         <n-space>
-          <n-button @click="notify('info')">信息</n-button>
-          <n-button @click="notify('success')">成功</n-button>
-          <n-button @click="notify('warning')">警告</n-button>
-          <n-button @click="notify('error')">错误</n-button>
+          <n-button @click="notify('info')">information</n-button>
+          <n-button @click="notify('success')">success</n-button>
+          <n-button @click="notify('warning')">warning</n-button>
+          <n-button @click="notify('error')">error</n-button>
         </n-space>
       </n-card>
 
-      <n-card min-w-340 title="确认弹窗 Dialog">
+      <n-card min-w-340 title="confirmation popup Dialog">
         <n-button type="error" @click="handleDelete">
           <icon-mi:delete mr-5 />
-          删除
+          delete
         </n-button>
       </n-card>
 
-      <n-card min-w-340 title="消息提醒 Message">
+      <n-card min-w-340 title="Message notification">
         <n-button :loading="loading" type="primary" @click="handleLogin">
           <icon-mdi:login v-show="!loading" mr-5 />
-          登陆
+          login
         </n-button>
       </n-card>
     </n-space>
@@ -65,12 +65,12 @@
 <script setup>
 const handleDelete = function () {
   $dialog.confirm({
-    content: '确认删除？',
+    content: 'confirm deletion?',
     confirm() {
-      $message.success('删除成功')
+      $message.success('successfully deleted')
     },
     cancel() {
-      $message.warning('已取消')
+      $message.warning('Cancelled')
     },
   })
 }
@@ -78,12 +78,12 @@ const handleDelete = function () {
 const loading = ref(false)
 function handleLogin() {
   loading.value = true
-  $message.loading('登陆中...')
+  $message.loading('loading...')
   setTimeout(() => {
-    $message.error('登陆失败')
-    $message.loading('正在尝试重新登陆...')
+    $message.error('Login failed')
+    $message.loading('trying to log in again...')
     setTimeout(() => {
-      $message.success('登陆成功')
+      $message.success('Login successfully')
       loading.value = false
     }, 2000)
   }, 2000)
@@ -91,8 +91,8 @@ function handleLogin() {
 
 function notify(type) {
   $notification[type]({
-    content: '说点啥呢',
-    meta: '想不出来',
+    content: 'say something',
+    meta: 'Have no idea',
     duration: 2500,
     keepAliveOnHover: true,
   })

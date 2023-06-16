@@ -15,7 +15,7 @@ const userStore = useUserStore()
 
 const options = [
   {
-    label: '退出登录',
+    label: 'sign out',
     key: 'logout',
     icon: renderIcon('mdi:exit-to-app', { size: '14px' }),
   },
@@ -24,12 +24,12 @@ const options = [
 function handleSelect(key) {
   if (key === 'logout') {
     $dialog.confirm({
-      title: '提示',
+      title: 'hint',
       type: 'info',
-      content: '确认退出？',
+      content: 'confirm exit?',
       confirm() {
         userStore.logout()
-        $message.success('已退出登录')
+        $message.success('Logged out')
       },
     })
   }

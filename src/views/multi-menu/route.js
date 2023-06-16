@@ -5,7 +5,7 @@ export default {
   path: '/multi-menu',
   component: Layout,
   meta: {
-    title: '多级菜单',
+    title: 'multilevel menu',
     icon: 'ic:baseline-menu',
     role: ['admin'],
     requireAuth: true,
@@ -63,7 +63,7 @@ export default {
           path: 'a-2-1',
           component: () => import('./a-2/a-2-1/index.vue'),
           meta: {
-            title: 'a-2-1（单个子菜单）',
+            title: 'a-2-1 (single submenu)',
             icon: 'ic:baseline-menu',
             role: ['admin'],
             requireAuth: true,

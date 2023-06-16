@@ -38,7 +38,7 @@
         <div mt-20>
           <n-checkbox
             :checked="isRemember"
-            label="记住我"
+            label="remember me"
             :on-update:checked="(val) => (isRemember = val)"
           />
         </div>
@@ -53,7 +53,7 @@
             :loading="loading"
             @click="handleLogin"
           >
-            登录
+            Login
           </n-button>
         </div>
       </div>
@@ -93,14 +93,14 @@ const loading = ref(false)
 async function handleLogin() {
   const { name, password } = loginInfo.value
   if (!name || !password) {
-    $message.warning('请输入用户名和密码')
+    $message.warning('Please enter username and password')
     return
   }
   try {
     loading.value = true
-    $message.loading('正在验证...')
+    $message.loading('verifying...')
     const res = await api.login({ name, password: password.toString() })
-    $message.success('登录成功')
+    $message.success('login successful')
     setToken(res.data.token)
     if (isRemember.value) {
       lStorage.set('loginInfo', { name, password })

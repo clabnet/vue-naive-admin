@@ -9,7 +9,7 @@ export function reqResolve(config) {
 
   const token = getToken()
   if (!token) {
-    return Promise.reject({ code: 401, message: '登录已过期，请重新登录！' })
+    return Promise.reject({ code: 401, message: 'Login has expired, please login again! ' })
   }
 
   /**

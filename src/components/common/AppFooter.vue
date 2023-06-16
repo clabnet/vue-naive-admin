@@ -7,7 +7,7 @@
         target="__blank"
         hover="decoration-underline color-primary"
       >
-        大脸怪
+        big face
       </a>
     </p>
     <p>
@@ -16,7 +16,7 @@
         target="__blank"
         hover="decoration-underline color-primary"
       >
-        赣ICP备2020015008号-1
+        Gan ICP No. 2020015008-1
       </a>
     </p>
   </footer>
