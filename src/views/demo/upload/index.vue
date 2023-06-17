@@ -1,5 +1,5 @@
 <template>
-  <CommonPage>
+  <common-page>
     <n-upload
       class="mx-auto w-[75%] p-20 text-center"
       :custom-request="handleUpload"
@@ -40,7 +40,7 @@
         </n-space>
       </n-image-group>
     </n-card>
-  </CommonPage>
+  </common-page>
 </template>
 
 <script setup>
@@ -73,7 +73,7 @@ async function handleUpload({ file, onFinish }) {
     $message.error('Please select a file')
   }
 
-  // 模拟上传
+  // Simulate upload
   $message.loading('uploading...')
   setTimeout(() => {
     $message.success('uploaded successfully')
