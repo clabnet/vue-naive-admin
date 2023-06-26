@@ -21,7 +21,8 @@
     "editor.formatOnSave": false
   },
   "[vue]": {
-    "editor.formatOnSave": false
+    "editor.formatOnSave": false,
+    "editor.defaultFormatter": "Vue.volar"
   },
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
   "editor.codeActionsOnSave": {
@@ -30,5 +31,6 @@
   "files.associations": {
     "*.env.*": "dotenv",
     "*.css": "postcss"
-  }
+  },
+  "vue.codeActions.enabled": false
 }

@@ -61,12 +61,14 @@
   </AppPage>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { lStorage, setToken } from '@/utils'
 import { useStorage } from '@vueuse/core'
 import bgImg from '@/assets/images/login_bg.webp'
 import api from './api'
 import { addDynamicRoutes } from '@/router'
+import { useRoute, useRouter } from 'vue-router'
+import { ref } from 'vue'
 
 const title = import.meta.env.VITE_TITLE
 
@@ -103,13 +105,13 @@ async function handleLogin() {
     $message.success('login successful')
     setToken(res.data.token)
     if (isRemember.value) {
-      lStorage.set('loginInfo', { name, password })
+      lStorage.set('loginInfo', { name, password }, null)
     } else {
       lStorage.remove('loginInfo')
     }
     await addDynamicRoutes()
     if (query.redirect) {
-      const path = query.redirect
+      const path: any= query.redirect
       Reflect.deleteProperty(query, 'redirect')
       router.push({ path, query })
     } else {

@@ -6,6 +6,6 @@
   </AppProvider>
 </template>
 
-<script setup>
-import AppProvider from '@/components/common/AppProvider.vue'
+<script lang="ts" setup>
+  import AppProvider from '@/components/common/AppProvider.vue'
 </script>

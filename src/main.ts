@@ -8,12 +8,11 @@ import { createApp } from 'vue'
 import { setupRouter } from '@/router'
 import { setupStore } from '@/store'
 import App from './App.vue'
-import { useResize } from '@zclzone/utils'
+import { useResize } from '@zclzone/utils' 
 
-async function setupApp() {
+async function setupApp(): Promise<void> {
   const app = createApp(App)
-
-  setupStore(app)
+ setupStore(app)
 
   await setupRouter(app)
 
