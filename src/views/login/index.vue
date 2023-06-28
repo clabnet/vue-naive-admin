@@ -63,19 +63,24 @@
 
 <script setup lang="ts">
 import { lStorage, setToken } from '@/utils'
-import { useStorage } from '@vueuse/core'
+import { RemovableRef, useStorage } from '@vueuse/core'
 import bgImg from '@/assets/images/login_bg.webp'
 import api from './api'
 import { addDynamicRoutes } from '@/router'
 import { useRoute, useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { Ref, ref } from 'vue'
 
 const title = import.meta.env.VITE_TITLE
 
 const router = useRouter()
 const { query } = useRoute()
 
-const loginInfo = ref({
+interface UserInfo {
+  name: string;
+  password: string;
+}
+
+const loginInfo: Ref<UserInfo> = ref({
   name: '',
   password: '',
 })
@@ -90,19 +95,19 @@ function initLoginInfo() {
   }
 }
 
-const isRemember = useStorage('isRemember', false)
-const loading = ref(false)
-async function handleLogin() {
+const isRemember: RemovableRef<boolean> = useStorage('isRemember', false)
+const loading: Ref<boolean> = ref(false)
+async function handleLogin(): Promise<void> {
   const { name, password } = loginInfo.value
   if (!name || !password) {
-    $message.warning('Please enter username and password')
+    (window as any).$message.warning('Please enter username and password')
     return
   }
   try {
-    loading.value = true
-    $message.loading('verifying...')
-    const res = await api.login({ name, password: password.toString() })
-    $message.success('login successful')
+    loading.value = true;
+    (window as any).$message.loading('verifying...')
+    const res = await api.login({ name, password: password.toString() });
+    (window as any).$message.success('login successful')
     setToken(res.data.token)
     if (isRemember.value) {
       lStorage.set('loginInfo', { name, password }, null)
@@ -118,8 +123,8 @@ async function handleLogin() {
       router.push('/')
     }
   } catch (error) {
-    console.error(error)
-    $message.removeMessage()
+    console.error(error);
+    (window as any).$message.removeMessage()
   }
   loading.value = false
 }

@@ -1,6 +1,7 @@
 {
   "extends": "./ts-config-base.json",
   "compilerOptions": {
+    "esModuleInterop": true,
     "baseUrl": ".",
     "resolveJsonModule": true,
     "rootDir": ".",

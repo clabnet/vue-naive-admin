@@ -35,7 +35,7 @@ import SideBar from './components/sidebar/index.vue'
 import AppMain from './components/AppMain.vue'
 import AppTags from './components/tags/index.vue'
 import { useAppStore } from '@/store'
-import { header, tags } from '~/settings'
+import { header, tags } from '~/settings/theme.json'
 
 const appStore = useAppStore()
 </script>

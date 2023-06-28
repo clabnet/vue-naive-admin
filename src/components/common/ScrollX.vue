@@ -23,9 +23,10 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { debounce } from '@/utils'
 import { useResize } from '@zclzone/utils'
+import { Ref, ref, onBeforeUnmount, onMounted } from 'vue'
 
 defineProps({
   showArrow: {
@@ -34,27 +35,27 @@ defineProps({
   },
 })
 
-const translateX = ref(0)
-const content = ref(null)
-const wrapper = ref(null)
-const isOverflow = ref(false)
+const translateX: Ref<number> = ref(0);
+const content = ref(null);
+const wrapper = ref(null);
+const isOverflow: Ref<boolean> = ref(false);
 
 const refreshIsOverflow = debounce(() => {
   const wrapperWidth = wrapper.value?.offsetWidth
   const contentWidth = content.value?.offsetWidth
   isOverflow.value = contentWidth > wrapperWidth
   resetTranslateX(wrapperWidth, contentWidth)
-}, 200)
+}, 200, true)
 
 function handleMouseWheel(e) {
   const { wheelDelta } = e
   const wrapperWidth = wrapper.value?.offsetWidth
   const contentWidth = content.value?.offsetWidth
   /**
-   * @wheelDelta 平行滚动的值 >0： 右移  <0: 左移
-   * @translateX 内容translateX的值
-   * @wrapperWidth 容器的宽度
-   * @contentWidth 内容的宽度
+   * @wheelDelta Values for parallel scrolling >0: move right <0: move left
+   * @translateX The value of the content translateX
+   * @wrapperWidth container width
+   * @contentWidth content width
    */
   if (wheelDelta < 0) {
     if (wrapperWidth > contentWidth && translateX.value < -10) return
@@ -76,7 +77,7 @@ const resetTranslateX = debounce(function (wrapperWidth, contentWidth) {
   } else if (translateX.value > 0) {
     translateX.value = 0
   }
-}, 200)
+}, 200, true)
 
 const observer = ref(null)
 onMounted(() => {
@@ -84,6 +85,7 @@ onMounted(() => {
 
   observer.value = useResize(document.body, refreshIsOverflow)
 })
+
 onBeforeUnmount(() => {
   observer.value?.disconnect()
 })
@@ -93,13 +95,13 @@ function handleScroll(x, width) {
   const contentWidth = content.value?.offsetWidth
   if (contentWidth <= wrapperWidth) return
 
-  // 当 x 小于可视范围的最小值时
+  // when x is less than the minimum value of the visible range
   if (x < -translateX.value + 150) {
     translateX.value = -(x - 150)
     resetTranslateX(wrapperWidth, contentWidth)
   }
 
-  // 当 x 大于可视范围的最大值时
+  // when x is greater than the maximum value of the visible range
   if (x + width > -translateX.value + wrapperWidth) {
     translateX.value = wrapperWidth - (x + width)
     resetTranslateX(wrapperWidth, contentWidth)

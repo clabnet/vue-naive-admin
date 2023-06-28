@@ -35,7 +35,7 @@ import {
 import { useCssVar } from '@vueuse/core'
 import { kebabCase } from 'lodash-es'
 import { setupMessage, setupDialog } from '@/utils'
-import { naiveThemeOverrides } from '~/settings' 
+import { naiveThemeOverrides } from '~/settings/theme.json' 
 import { useAppStore } from '@/store'
 
 const appStore = useAppStore()
