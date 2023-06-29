@@ -45,7 +45,7 @@ const refreshIsOverflow = debounce(() => {
   const contentWidth = content.value?.offsetWidth
   isOverflow.value = contentWidth > wrapperWidth
   resetTranslateX(wrapperWidth, contentWidth)
-}, 200, true)
+}, 200) 
 
 function handleMouseWheel(e) {
   const { wheelDelta } = e
@@ -77,7 +77,7 @@ const resetTranslateX = debounce(function (wrapperWidth, contentWidth) {
   } else if (translateX.value > 0) {
     translateX.value = 0
   }
-}, 200, true)
+}, 200)
 
 const observer = ref(null)
 onMounted(() => {
