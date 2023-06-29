@@ -35,7 +35,7 @@ export function resResolve(response) {
     const message = resolveResError(code, data?.message ?? statusText)
 
     /** need error reminder */
-    !config.noNeedTip && window.$message?.error(message)
+    !config.noNeedTip && (window as any).$message?.error(message)
     return Promise.reject({ code, message, error: data || response })
   }
   return Promise.resolve(data)
@@ -45,14 +45,14 @@ export function resReject(error) {
   if (!error || !error.response) {
     const code = error?.code
     /** Process the corresponding operation according to the code and return the processed message */
-    const message = resolveResError(code, error.message)
-    window.$message?.error(message)
+    const message = resolveResError(code, error.message);
+    (window as any).$message?.error(message)
     return Promise.reject({ code, message, error })
   }
   const { data, status, config } = error.response
   const code = data?.code ?? status
   const message = resolveResError(code, data?.message ?? error.message)
   /** need error reminder */
-  !config?.noNeedTip && window.$message?.error(message)
+  !config?.noNeedTip && (window as any).$message?.error(message)
   return Promise.reject({ code, message, error: error.response?.data || error.response })
 }

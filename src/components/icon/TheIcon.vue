@@ -1,4 +1,5 @@
-<script setup>
+<script lang="ts" setup>
+import {computed} from 'vue'
 import { renderIcon, renderCustomIcon } from '@/utils'
 
 const props = defineProps({
