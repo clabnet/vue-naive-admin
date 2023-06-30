@@ -5,7 +5,7 @@
   </n-icon>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { useFullscreen } from '@vueuse/core'
 
 const { isFullscreen, toggle } = useFullscreen()

@@ -1,4 +1,5 @@
 import { isNullOrWhitespace } from '@/utils'
+import { computed, ref } from 'vue'
 
 const ACTIONS = {
   view: 'Check',
@@ -22,14 +23,14 @@ export default function ({ name, initForm = {}, doCreate, doDelete, doUpdate, re
   }
 
   /** Edit */
-  function handleEdit(row) {
+  function handleEdit(row: {}): void {
     modalAction.value = 'edit'
     modalVisible.value = true
     modalForm.value = { ...row }
   }
 
   /** Check */
-  function handleView(row) {
+  function handleView(row: {}) : void {
     modalAction.value = 'view'
     modalVisible.value = true
     modalForm.value = { ...row }
@@ -46,11 +47,11 @@ export default function ({ name, initForm = {}, doCreate, doDelete, doUpdate, re
       const actions = {
         add: {
           api: () => doCreate(modalForm.value),
-          cb: () => $message.success('added successfully'),
+          cb: () => (window as any).$message.success('added successfully'),
         },
         edit: {
           api: () => doUpdate(modalForm.value),
-          cb: () => $message.success('edited successfully'),
+          cb: () => (window as any).$message.success('edited successfully'),
         },
       }
       const action = actions[modalAction.value]
@@ -70,13 +71,13 @@ export default function ({ name, initForm = {}, doCreate, doDelete, doUpdate, re
   /** 删除 */
   function handleDelete(id, confirmOptions) {
     if (isNullOrWhitespace(id)) return
-    $dialog.confirm({
+    ;(window as any).$dialog.confirm({
       content: 'confirm delete?',
       async confirm() {
         try {
           modalLoading.value = true
-          const data = await doDelete(id)
-          $message.success('successfully deleted')
+          const data = await doDelete(id);
+          (window as any).$message.success('successfully deleted')
           modalLoading.value = false
           refresh(data)
         } catch (error) {

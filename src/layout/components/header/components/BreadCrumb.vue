@@ -11,8 +11,9 @@
   </n-breadcrumb>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { renderCustomIcon, renderIcon } from '@/utils'
+import {useRouter, useRoute} from 'vue-router'
 
 const router = useRouter()
 const route = useRoute()

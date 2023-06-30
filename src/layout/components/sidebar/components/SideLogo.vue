@@ -7,7 +7,7 @@
   </router-link>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { useAppStore } from '@/store'
 const title = import.meta.env.VITE_TITLE
 

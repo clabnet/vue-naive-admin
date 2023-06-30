@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import BreadCrumb from './components/BreadCrumb.vue'
 import MenuCollapse from './components/MenuCollapse.vue'
 import FullScreen from './components/FullScreen.vue'

@@ -7,7 +7,7 @@
   </n-dropdown>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { useUserStore } from '@/store'
 import { renderIcon } from '@/utils'
 
@@ -23,13 +23,13 @@ const options = [
 
 function handleSelect(key) {
   if (key === 'logout') {
-    $dialog.confirm({
+    (window as any).$dialog.confirm({
       title: 'hint',
       type: 'info',
       content: 'confirm exit?',
       confirm() {
-        userStore.logout()
-        $message.success('Logged out')
+        userStore.logout();
+        (window as any).$message.success('Logged out')
       },
     })
   }

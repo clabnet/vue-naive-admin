@@ -4,7 +4,7 @@
   </n-icon>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 function handleLinkClick() {
   window.open('https://github.com/zclzone/vue-naive-admin')
 }

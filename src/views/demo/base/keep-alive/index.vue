@@ -10,24 +10,26 @@
   </CommonPage>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+import { ref, onMounted, onUnmounted, onActivated, onDeactivated } from 'vue'
+
 defineOptions({ name: 'KeepAlive' })
 
 const inputVal = ref('')
 const number = ref(0)
 
 onMounted(() => {
-  $message.success('onMounted')
+  (window as any).$message.success('onMounted')
 })
 
 onUnmounted(() => {
-  $message.error('onUnmounted')
+  (window as any).$message.error('onUnmounted')
 })
 
 onActivated(() => {
-  $message.info('onActivated')
+  (window as any).$message.info('onActivated')
 })
 onDeactivated(() => {
-  $message.warning('onDeactivated')
+  (window as any).$message.warning('onDeactivated')
 })
 </script>

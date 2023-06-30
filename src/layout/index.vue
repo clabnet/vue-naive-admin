@@ -29,7 +29,7 @@
   </n-layout>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import AppHeader from './components/header/index.vue'
 import SideBar from './components/sidebar/index.vue'
 import AppMain from './components/AppMain.vue'

@@ -12,9 +12,11 @@
   />
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { usePermissionStore, useAppStore } from '@/store'
 import { renderCustomIcon, renderIcon, isExternal } from '@/utils'
+import { computed, ref, nextTick, watch, VNode } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter()
 const curRoute = useRoute()
@@ -33,6 +35,15 @@ watch(curRoute, async () => {
   menu.value?.showOption()
 })
 
+interface menuItem {
+  label?: string;
+  key?: string;
+  path?: string;
+  icon?: string | (() => VNode);
+  order?: any;
+  children?: boolean
+}
+
 function resolvePath(basePath, path) {
   if (isExternal(path)) return path
   return (
@@ -45,7 +56,7 @@ function resolvePath(basePath, path) {
 }
 
 function getMenuItem(route, basePath = '') {
-  let menuItem = {
+  let menuItem: menuItem = {
     label: (route.meta && route.meta.title) || route.name,
     key: route.name,
     path: resolvePath(basePath, route.path),
@@ -60,7 +71,7 @@ function getMenuItem(route, basePath = '') {
   if (!visibleChildren.length) return menuItem
 
   if (visibleChildren.length === 1) {
-    // 单个子路由处理
+    // Single Subroute Handling
     const singleRoute = visibleChildren[0]
     menuItem = {
       ...menuItem,
@@ -94,7 +105,7 @@ function getIcon(meta) {
   return null
 }
 
-function handleMenuSelect(key, item) {
+function handleMenuSelect(_key: string, item: any) {
   if (isExternal(item.path)) {
     window.open(item.path)
   } else {

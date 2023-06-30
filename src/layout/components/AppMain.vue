@@ -10,14 +10,19 @@
   </router-view>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { useAppStore } from '@/store'
-import { useRouter } from 'vue-router'
+import { useRouter  } from 'vue-router'
+
 const appStore = useAppStore()
 const router = useRouter()
 
-const allRoutes = router.getRoutes()
-const keepAliveRouteNames = computed(() => {
-  return allRoutes.filter((route) => route.meta?.keepAlive).map((route) => route.name)
-})
+const allRoutes = router.getRoutes();
+// const keepAliveRouteNames = computed(() => {
+//   return allRoutes.filter((route) => route.meta?.keepAlive).map((route) => route.name)
+// })
+
+const keepAliveRouteNames: Array<string | RegExp> = allRoutes
+  .filter((route) => route.meta?.keepAlive)
+  .map((route) => route.name.toString());
 </script>

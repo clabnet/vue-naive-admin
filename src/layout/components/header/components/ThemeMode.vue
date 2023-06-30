@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { useAppStore } from '@/store'
 import { useDark, useToggle } from '@vueuse/core'
 
