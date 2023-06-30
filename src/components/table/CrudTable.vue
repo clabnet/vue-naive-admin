@@ -16,19 +16,27 @@
   />
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { utils, writeFile } from 'xlsx'
+import { Ref, ref, reactive, nextTick  } from 'vue'
+
+interface Column {
+  type?: string;
+  title?: string;
+  hideInExcel?: boolean;
+  key?: string;
+}
 
 const props = defineProps({
   /**
-   * @remote true: 后端分页  false： 前端分页
+   * @remote true: backend pagination  false： front-end pagination
    */
   remote: {
     type: Boolean,
     default: true,
   },
   /**
-   * @remote 是否分页
+   * @remote Whether to page
    */
   isPagination: {
     type: Boolean,
@@ -43,17 +51,17 @@ const props = defineProps({
     default: 'id',
   },
   columns: {
-    type: Array,
+    type: Array as () => Column[],
     required: true,
   },
-  /** queryBar中的参数 */
+  /** Parameters in queryBar */
   queryItems: {
     type: Object,
     default() {
       return {}
     },
   },
-  /** 补充参数（可选） */
+  /** Additional parameters (optional) */
   extraParams: {
     type: Object,
     default() {
@@ -61,13 +69,13 @@ const props = defineProps({
     },
   },
   /**
-   * ! 约定接口入参出参
-   * * 分页模式需约定分页接口入参
-   *    @pageSize 分页参数：一页展示多少条，默认10
-   *    @pageNo   分页参数：页码，默认1
-   * * 需约定接口出参
-   *    @pageData 分页模式必须,非分页模式如果没有pageData则取上一层data
-   *    @total    分页模式必须，非分页模式如果没有total则取上一层data.length
+   * ! Agreed interface input and output parameters
+   * * The paging mode needs to agree on the input parameters of the paging interface
+   *    @pageSize Pagination parameters: how many items to display on one page, default 10
+   *    @pageNo   Pagination parameters: page number, default 1
+   * * Interface output parameters need to be agreed
+   *    @pageData Paging mode is required, if there is no pageData in non-paged mode, the previous layer of data will be taken
+   *    @total    Paging mode is required, if there is no total in non-paging mode, take the previous layer of data.length
    */
   getData: {
     type: Function,
@@ -75,17 +83,28 @@ const props = defineProps({
   },
 })
 
+interface initQuery {
+  [x: string]: any;
+}
+
 const emit = defineEmits(['update:queryItems', 'onChecked', 'onDataChange'])
-const loading = ref(false)
-const initQuery = { ...props.queryItems }
-const tableData = ref([])
-const pagination = reactive({ page: 1, pageSize: 10 })
+const loading: Ref<boolean> = ref(false)
+const initQuery: initQuery = { ...props.queryItems }
+const tableData: Ref<any[]> = ref([])
+
+interface pagination {
+  page?: number;
+  pageSize?: number;
+  itemCount?: number;
+}
+
+const pagination: pagination = reactive({ page: 1, pageSize: 10 })
 
 async function handleQuery() {
   try {
     loading.value = true
     let paginationParams = {}
-    // 如果非分页模式或者使用前端分页,则无需传分页参数
+    // If you are in non-paging mode or using front-end paging, you do not need to pass paging parameters
     if (props.isPagination && props.remote) {
       paginationParams = { pageNo: pagination.page, pageSize: pagination.pageSize }
     }
@@ -118,7 +137,7 @@ async function handleReset() {
   pagination.page = 1
   handleQuery()
 }
-function onPageChange(currentPage) {
+function onPageChange(currentPage: any): void {
   pagination.page = currentPage
   if (props.remote) {
     handleQuery()
@@ -130,7 +149,7 @@ function onChecked(rowKeys) {
   }
 }
 function handleExport(columns = props.columns, data = tableData.value) {
-  if (!data?.length) return $message.warning('no data')
+  if (!data?.length) return (window as any).$message.warning('no data')
   const columnsData = columns.filter((item) => !!item.title && !item.hideInExcel)
   const thKeys = columnsData.map((item) => item.key)
   const thData = columnsData.map((item) => item.title)

@@ -14,7 +14,10 @@
   </AppPage>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+
+import { useRoute } from 'vue-router'
+
 defineProps({
   showFooter: {
     type: Boolean,

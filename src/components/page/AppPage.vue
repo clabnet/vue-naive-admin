@@ -8,7 +8,7 @@
   </transition>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 defineProps({
   showFooter: {
     type: Boolean,

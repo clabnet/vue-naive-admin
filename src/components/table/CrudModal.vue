@@ -19,7 +19,10 @@
   </n-modal>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+
+import {computed} from 'vue'
+
 const props = defineProps({
   width: {
     type: String,
@@ -48,7 +51,7 @@ const show = computed({
   get() {
     return props.visible
   },
-  set(v) {
+  set(v:any):void {
     emit('update:visible', v)
   },
 })

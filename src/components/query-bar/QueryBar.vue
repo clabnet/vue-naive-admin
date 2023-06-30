@@ -22,6 +22,6 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 const emit = defineEmits(['search', 'reset'])
 </script>
