@@ -1,16 +1,17 @@
 import { defineStore } from 'pinia'
 import { asyncRoutes, basicRoutes } from '@/router/routes'
+import { RouteRecordRaw } from 'vue-router'
 
 function hasPermission(route, role) {
-  // * 不需要权限直接返回true
+  // * Return true directly without permission
   if (!route.meta?.requireAuth) return true
 
   const routeRole = route.meta?.role ? route.meta.role : []
 
-  // * 登录用户没有角色或者路由没有设置角色判定为没有权限
+  // * If the login user does not have a role or the route does not have a role set, it is judged as having no permission
   if (!role.length || !routeRole.length) return false
 
-  // * 路由指定的角色包含任一登录用户角色则判定有权限
+  // * If the role specified by the route contains any login user role, it is determined to have permission
   return role.some((item) => routeRole.includes(item))
 }
 
@@ -36,15 +37,18 @@ function filterAsyncRoutes(routes = [], role) {
 export const usePermissionStore = defineStore('permission', {
   state() {
     return {
-      accessRoutes: [],
+      accessRoutes: [] as RouteRecordRaw[],
+      routes: [] as RouteRecordRaw[],
     }
   },
   getters: {
-    routes() {
-      return basicRoutes.concat(this.accessRoutes)
+    routes(state) {
+      return [...basicRoutes, ...state.accessRoutes] as RouteRecordRaw[]
     },
-    menus() {
-      return this.routes.filter((route) => route.name && !route.isHidden)
+    menus(state) {
+      return state.routes.filter(
+        (route: any) => route.name && !route.isHidden
+      )
     },
   },
   actions: {

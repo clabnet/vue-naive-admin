@@ -4,24 +4,34 @@ import { useTagsStore, usePermissionStore } from '@/store'
 import { removeToken, toLogin } from '@/utils'
 import api from '@/api'
 
+
+  interface UserInfo {
+    id?: string
+    name?: string
+    avatar?: string
+    role?: string[]
+  }
+
 export const useUserStore = defineStore('user', {
+
+
   state() {
     return {
-      userInfo: {},
+      userInfo: {} as UserInfo,
     }
   },
   getters: {
-    userId() {
-      return this.userInfo?.id
+    userId(state) {
+      return state.userInfo?.id
     },
-    name() {
-      return this.userInfo?.name
+    name(state) {
+      return state.userInfo?.name
     },
-    avatar() {
-      return this.userInfo?.avatar
+    avatar(state) {
+      return state.userInfo?.avatar
     },
-    role() {
-      return this.userInfo?.role || []
+    role(state) {
+      return state.userInfo?.role || []
     },
   },
   actions: {
