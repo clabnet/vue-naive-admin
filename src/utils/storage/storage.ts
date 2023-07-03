@@ -1,16 +1,18 @@
 import { isNullOrUndef } from '@/utils'
 
 class Storage {
-  constructor(option) {
+  storage: any;
+  prefixKey: any;
+  constructor(option: { prefixKey: any; storage: any }) {
     this.storage = option.storage
     this.prefixKey = option.prefixKey
   }
 
-  getKey(key) {
+  getKey(key: any) {
     return `${this.prefixKey}${key}`.toUpperCase()
   }
 
-  set(key, value, expire) {
+  set(key: string, value: string | any[], expire: any) {
     const stringData = JSON.stringify({
       value,
       time: Date.now(),
@@ -19,12 +21,12 @@ class Storage {
     this.storage.setItem(this.getKey(key), stringData)
   }
 
-  get(key) {
+  get(key: string) {
     const { value } = this.getItem(key, {})
     return value
   }
 
-  getItem(key, def = null) {
+  getItem(key: string, def = null) {
     const val = this.storage.getItem(this.getKey(key))
     if (!val) return def
     try {
@@ -41,7 +43,7 @@ class Storage {
     }
   }
 
-  remove(key) {
+  remove(key: string) {
     this.storage.removeItem(this.getKey(key))
   }
 

@@ -1,7 +1,7 @@
 import { getToken } from '@/utils'
 import { resolveResError } from './helpers'
 
-export function reqResolve(config: { noNeedToken: any; headers: { Authorization: string } }) {
+export function reqResolve(config: any) {
   // Gestisci le richieste che non richiedono un token
   if (config.noNeedToken) {
     return config
@@ -21,11 +21,11 @@ export function reqResolve(config: { noNeedToken: any; headers: { Authorization:
   return config
 }
 
-export function reqReject(error) {
+export function reqReject(error: any) {
   return Promise.reject(error)
 }
 
-export function resResolve(response) {
+export function resResolve(response: { data: any; status: any; config: any; statusText: any; }) {
   // TODO: Handle different response.headers
   const { data, status, config, statusText } = response
   if (data?.code !== 0) {
@@ -41,7 +41,7 @@ export function resResolve(response) {
   return Promise.resolve(data)
 }
 
-export function resReject(error) {
+export function resReject(error: { response: { data: any; status?: any; config?: any; }; code: any; message: any; }) {
   if (!error || !error.response) {
     const code = error?.code
     /** Process the corresponding operation according to the code and return the processed message */

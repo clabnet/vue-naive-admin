@@ -6,7 +6,7 @@ export function addBaseParams(params) {
   }
 }
 
-export function resolveResError(code, message) {
+export function resolveResError(code: any, message: string) {
   switch (code) {
     case 400:
       message = message ?? 'Request parameter error'

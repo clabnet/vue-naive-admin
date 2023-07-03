@@ -2,14 +2,14 @@ import { createStorage } from './storage'
 
 const prefixKey = 'Vue_Naive_Admin_'
 
-export const createLocalStorage = function (option = {}) {
+export const createLocalStorage = function (option: any) {
   return createStorage({
     prefixKey: option.prefixKey || '',
     storage: localStorage,
   })
 }
 
-export const createSessionStorage = function (option = {}) {
+export const createSessionStorage = function (option: any) {
   return createStorage({
     prefixKey: option.prefixKey || '',
     storage: sessionStorage,
