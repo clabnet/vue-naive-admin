@@ -70,9 +70,9 @@ export const EMPTY_ROUTE = {
 }
 
 const modules = import.meta.glob('@/views/**/route.js', { eager: true })
-const asyncRoutes = []
+const asyncRoutes: any[] = []
 Object.keys(modules).forEach((key) => {
-  asyncRoutes.push(modules[key].default)
+  asyncRoutes.push((modules[key] as any).default)
 })
 
 export { asyncRoutes }

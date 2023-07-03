@@ -1,15 +1,15 @@
 export function createPageLoadingGuard(router) {
   router.beforeEach(() => {
-    window.$loadingBar?.start()
+    (window as any).$loadingBar?.start()
   })
 
   router.afterEach(() => {
     setTimeout(() => {
-      window.$loadingBar?.finish()
+      (window as any).$loadingBar?.finish()
     }, 200)
   })
 
   router.onError(() => {
-    window.$loadingBar?.error()
+    (window as any).$loadingBar?.error()
   })
 }
