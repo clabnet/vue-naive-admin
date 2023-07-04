@@ -62,35 +62,37 @@
   </CommonPage>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+import {ref} from 'vue'
+
 const handleDelete = function () {
-  $dialog.confirm({
+  (window as any).$dialog.confirm({
     content: 'confirm deletion?',
     confirm() {
-      $message.success('successfully deleted')
+      (window as any).$message.success('successfully deleted')
     },
     cancel() {
-      $message.warning('Cancelled')
+      (window as any).$message.warning('Cancelled')
     },
   })
 }
 
 const loading = ref(false)
 function handleLogin() {
-  loading.value = true
-  $message.loading('loading...')
+  loading.value = true;
+  (window as any).$message.loading('loading...');
   setTimeout(() => {
-    $message.error('Login failed')
-    $message.loading('trying to log in again...')
+    (window as any).$message.error('Login failed');
+    (window as any).$message.loading('trying to log in again...');
     setTimeout(() => {
-      $message.success('Login successfully')
-      loading.value = false
+      (window as any).$message.success('Login successfully');
+      loading.value = false;
     }, 2000)
   }, 2000)
 }
 
 function notify(type) {
-  $notification[type]({
+  (window as any).$notification[type]({
     content: 'say something',
     meta: 'Have no idea',
     duration: 2500,

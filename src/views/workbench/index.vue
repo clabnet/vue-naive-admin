@@ -53,7 +53,7 @@
   </AppPage>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { useUserStore } from '@/store'
 
 const userStore = useUserStore()

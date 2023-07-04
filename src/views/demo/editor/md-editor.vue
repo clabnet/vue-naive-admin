@@ -17,21 +17,22 @@
   </CommonPage>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+import { ref } from 'vue'
 import MdEditor from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
 
 defineOptions({ name: 'MDEditor' })
 
 // refs
-let post = ref({})
+let post:any = ref({})
 let btnLoading = ref(false)
 
 function handleSavePost() {
-  btnLoading.value = true
-  $message.loading('Saving...')
+  btnLoading.value = true;
+  (window as any).$message.loading('Saving...')
   setTimeout(() => {
-    $message.success('Saved successfully')
+    (window as any).$message.success('Saved successfully')
     btnLoading.value = false
   }, 2000)
 }

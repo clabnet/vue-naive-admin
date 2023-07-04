@@ -110,7 +110,7 @@ async function handleLogin(): Promise<void> {
     (window as any).$message.success('login successful')
     setToken(res.data.token)
     if (isRemember.value) {
-      lStorage.set('loginInfo', { name, password }, null)
+      lStorage.set('loginInfo', { name, password }) 
     } else {
       lStorage.remove('loginInfo')
     }

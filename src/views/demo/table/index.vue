@@ -34,7 +34,7 @@
         </QueryBarItem>
       </template>
     </CrudTable>
-    <!-- 新增/编辑/查看 -->
+    <!-- Add/Edit/View -->
     <CrudModal
       v-model:visible="modalVisible"
       :title="modalTitle"
@@ -88,7 +88,8 @@
   </CommonPage>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+import { ref, onActivated, h } from 'vue'
 import { NButton, NSwitch } from 'naive-ui'
 import { formatDateTime, renderIcon, isNullOrUndef } from '@/utils'
 import { useCRUD } from '@/composables'
@@ -97,11 +98,11 @@ import api from './api'
 defineOptions({ name: 'Crud' })
 
 const $table = ref(null)
-/** 表格数据，触发搜索的时候会更新这个值 */
+/** Table data, this value will be updated when a search is triggered */
 const tableData = ref([])
-/** QueryBar筛选参数（可选） */
-const queryItems = ref({})
-/** 补充参数（可选） */
+/** QueryBar filter parameters (optional) */
+const queryItems:any = ref({})
+/** Additional parameters (optional) */
 const extraParams = ref({})
 
 onActivated(() => {
@@ -193,20 +194,21 @@ const columns = [
   },
 ]
 
-// 选中事件
+// selected event
 function onChecked(rowKeys) {
-  if (rowKeys.length) $message.info(`selected${rowKeys.join(' ')}`)
+  if (rowKeys.length)
+    (window as any).$message.info(`selected${rowKeys.join(' ')}`)
 }
 
-// 发布
+// publish
 function handlePublish(row) {
   if (isNullOrUndef(row.id)) return
 
   row.publishing = true
   setTimeout(() => {
     row.isPublish = !row.isPublish
-    row.publishing = false
-    $message?.success(row.isPublish ? 'Published' : 'Unpublished')
+    row.publishing = false;
+    (window as any).$message?.success(row.isPublish ? 'Published' : 'Unpublished')
   }, 1000)
 }
 

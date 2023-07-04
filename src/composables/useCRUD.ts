@@ -13,7 +13,7 @@ export default function ({ name, initForm = {}, doCreate, doDelete, doUpdate, re
   const modalTitle = computed(() => ACTIONS[modalAction.value] + name)
   const modalLoading = ref(false)
   const modalFormRef = ref(null)
-  const modalForm = ref({ ...initForm })
+  const modalForm:any = ref({ ...initForm })
 
   /** Add */
   function handleAdd() {
@@ -69,7 +69,7 @@ export default function ({ name, initForm = {}, doCreate, doDelete, doUpdate, re
   }
 
   /** 删除 */
-  function handleDelete(id, confirmOptions) {
+  function handleDelete(id: null, confirmOptions?: any) {
     if (isNullOrWhitespace(id)) return
     ;(window as any).$dialog.confirm({
       content: 'confirm delete?',

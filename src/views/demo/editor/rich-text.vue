@@ -19,13 +19,14 @@
   </AppPage>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+import { ref, shallowRef } from 'vue'
 import '@wangeditor/editor/dist/css/style.css'
 import { Editor as WangEditor, Toolbar as WangToolbar } from '@wangeditor/editor-for-vue'
 
 defineOptions({ name: 'RichTextEditor' })
 const editorRef = shallowRef()
-const toolbarConfig = { excludeKeys: 'fullScreen' }
+const toolbarConfig: any = { excludeKeys: 'fullScreen' }
 const editorConfig = { placeholder: 'Please enter content...', MENU_CONF: {} }
 const valueHtml = ref('')
 

@@ -69,7 +69,7 @@ export const EMPTY_ROUTE = {
   component: null,
 }
 
-const modules = import.meta.glob('@/views/**/route.js', { eager: true })
+const modules = import.meta.glob('@/views/**/route.ts', { eager: true })
 const asyncRoutes: any[] = []
 Object.keys(modules).forEach((key) => {
   asyncRoutes.push((modules[key] as any).default)

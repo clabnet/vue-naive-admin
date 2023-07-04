@@ -43,13 +43,14 @@
   </CommonPage>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+import { reactive, watch } from 'vue'
 import { useClipboard } from '@vueuse/core'
 defineOptions({ name: 'Upload' })
 
 const { copy, copied } = useClipboard()
 
-const imgList = reactive([
+const imgList:any = reactive([
   { url: 'https://cdn.qszone.com/images/5c23d52f880511ebb6edd017c2d2eca2.jpg' },
   { url: 'https://cdn.qszone.com/images/5c23d52f880511ebb6edd017c2d2eca2.jpg' },
   { url: 'https://cdn.qszone.com/images/5c23d52f880511ebb6edd017c2d2eca2.jpg' },
@@ -57,12 +58,12 @@ const imgList = reactive([
 ])
 
 watch(copied, (val) => {
-  val && $message.success('copied to clipboard')
+  val && (window as any).$message.success('copied to clipboard')
 })
 
 function onBeforeUpload({ file }) {
   if (!file.file?.type.startsWith('image/')) {
-    $message.error('Only pictures can be uploaded')
+    (window as any).$message.error('Only pictures can be uploaded')
     return false
   }
   return true
@@ -70,13 +71,13 @@ function onBeforeUpload({ file }) {
 
 async function handleUpload({ file, onFinish }) {
   if (!file || !file.type) {
-    $message.error('Please select a file')
+    (window as any).$message.error('Please select a file')
   }
 
-  // 模拟上传
-  $message.loading('uploading...')
+  // Simulate upload
+  (window as any).$message.loading('uploading...')
   setTimeout(() => {
-    $message.success('uploaded successfully')
+    (window as any).$message.success('uploaded successfully');
     imgList.push({ fileName: file.name, url: URL.createObjectURL(file.file) })
     onFinish()
   }, 1500)
